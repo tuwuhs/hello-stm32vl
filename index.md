@@ -5,6 +5,8 @@ project_name: Hello STM32VLDISCOVERY!
 project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running.
 ---
 
+[<img src="img/STM32VLDISCOVERY-board.jpg" />](img/STM32VLDISCOVERY-board.jpg)
+
 # Brief
 - [STM32VLDISCOVERY Product page](http://www.st.com/web/en/catalog/tools/FM116/SC959/SS1532/PF250863?sc=stm32-discovery)
 - [STM32F100RB microcontroller](http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1031/LN775/PF216844?sc=internet/mcu/product/216844.jsp)
@@ -57,6 +59,7 @@ project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running
   - Use system calls: **Freestanding (no POSIX system calls)**
   - Trace output: **None (no trace output)**
 - Build the project, verify that the build succeeded
+[<img src="img/eclipse-stm32-code-150726.png" />](img/eclipse-stm32-code-150726.png)
   - Q: where is the linker script?
 - Use **STM32 ST-LINK Utility** to Program the .hex file to the device --> Nothing happens . . .
 - Need to modify clock settings and GPIO assignment:
@@ -73,7 +76,11 @@ project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running
 # Install OpenOCD
 - Reference: [OpenOCD install](http://gnuarmeclipse.livius.net/blog/openocd-install/)
 - Install **STLINK driver** (`stsw-link009/stlink_winusb_install.bat`)
-- Using **Zadig**, change the driver to *WinUSB (v6.1.7600.16385)* -- or later version
+- Using **Zadig**
+  - *Options - List All Devices*
+  - Select *STM32 STLink* from the dropdown
+  - Change the driver to *WinUSB (v6.1.7600.16385)* -- or later version, click *Replace Driver*
+[<img src="img/zadig-stlink-150726.png" />](img/zadig-stlink-150726.png)
   - On the first time, Zadig reported failed to install the driver (timeout after ~5 minutes), but after reconnecting the board now it is listed as *Universal Serial Bus devices - STM32 STLink* in Device Manager
     - Not sure if this is a normal behavior
     - Also now the board is not detected by STM32 ST-LINK Utility
@@ -104,6 +111,7 @@ Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
 - Reference: [OpenOCD debugging](http://gnuarmeclipse.livius.net/blog/openocd-debugging/)
 - Setup debugging configuration using *Run - Debug Configurations...*, then start debugging using *Debug*
   - Debugging works! Single step, breakpoint, watch expression . . .
+[<img src="img/eclipse-stm32-debugging-150726.png" />](img/eclipse-stm32-debugging-150726.png)
 - The debugging speed is rather slow
   - To increase, edit `C:\Program Files (x86)\GNU ARM Eclipse\OpenOCD\0.9.0-201505190955\scripts\board\stm32vldiscovery.cfg`, add this line: `adapter_khz 20000`
   - When running the OpenOCD, now the debugger runs at 4000 kHz (apparently it is limited to half of clock frequency)
