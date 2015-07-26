@@ -6,7 +6,6 @@ project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running
 ---
 
 [a](img/STM32VLDISCOVERY-board.jpg)
-[<img src="img/STM32VLDISCOVERY-board.jpg" />](img/STM32VLDISCOVERY-board.jpg)
 
 # Brief
 - [STM32VLDISCOVERY Product page](http://www.st.com/web/en/catalog/tools/FM116/SC959/SS1532/PF250863?sc=stm32-discovery)
