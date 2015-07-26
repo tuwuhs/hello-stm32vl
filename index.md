@@ -86,7 +86,7 @@ project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running
     - Also now the board is not detected by STM32 ST-LINK Utility
   - To restore the original driver: uninstall driver in Device Manager, make sure that *Delete the driver software for this device* is checked
   - Second time using Zadig, driver installed successfully
-- Install OpenOCD
+- Install **OpenOCD**
   - Verify that OpenOCD works:
 <pre><code>
 C:\Program Files (x86)\GNU ARM Eclipse\OpenOCD\0.9.0-201505190955\bin>openocd -f board/stm32vldiscovery.cfg
