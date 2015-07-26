@@ -2,7 +2,8 @@
 layout: default
 title: Hello STM32VLDISCOVERY! by tuwuhs
 description: > # this means to ignore newlines until "baseurl:"
-My attempt in getting the STM32VLDISCOVERY board up and running
+  My attempt in getting the STM32VLDISCOVERY board up and running.
+  Tags: STM32, ARM Cortex-M3, Eclipse, GNU ARM Eclipse, Zadig, STLINK, ST-LINK, STM32VLDISCOVERY, development board, OpenOCD, GDB
 baseurl: "/hello-stm32vl/" # the subpath of your site, e.g. /blog/
 url: "http://tuwuhs.github.io" # the base hostname & protocol for your site
 twitter_username: jekyllrb
