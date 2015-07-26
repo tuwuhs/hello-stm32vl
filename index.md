@@ -5,7 +5,7 @@ project_name: Hello STM32VLDISCOVERY!
 project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running.
 ---
 
-<img src="/img/STM32VLDISCOVERY-board.jpg" />
+[a](img/STM32VLDISCOVERY-board.jpg)
 [<img src="img/STM32VLDISCOVERY-board.jpg" />](img/STM32VLDISCOVERY-board.jpg)
 
 # Brief
