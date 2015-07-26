@@ -45,7 +45,7 @@ project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running
 - Install the packs needed (**STM32F1xx_DFP**)
   - To see the progress, look at the status bar on the bottom right 
 - Back to C/C++ perspective, [assign device to project](http://gnuarmeclipse.livius.net/blog/assign-device-project/)
-- Note: it seems that Packs is still not used in build process in current version of GNU ARM Eclipse plugin (1.0.0.7X7s7icNPLHh8Ecy9dreSyo_r), 
+- Note: it seems that Packs is still not used in build process in current version of GNU ARM Eclipse plugin (`1.0.0.7X7s7icNPLHh8Ecy9dreSyo_r`) 
 
 
 # Hello Blinky
@@ -76,7 +76,7 @@ project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running
 # Install OpenOCD
 - Reference: [OpenOCD install](http://gnuarmeclipse.livius.net/blog/openocd-install/)
 - Install **STLINK driver** (`stsw-link009/stlink_winusb_install.bat`)
-- Using **Zadig**
+- Using **Zadig** (`zadig_2.1.2.exe`)
   - *Options - List All Devices*
   - Select *STM32 STLink* from the dropdown
   - Change the driver to *WinUSB (v6.1.7600.16385)* -- or later version, click *Replace Driver*
@@ -86,7 +86,7 @@ project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running
     - Also now the board is not detected by STM32 ST-LINK Utility
   - To restore the original driver: uninstall driver in Device Manager, make sure that *Delete the driver software for this device* is checked
   - Second time using Zadig, driver installed successfully
-- Install **OpenOCD**
+- Install **OpenOCD** (`gnuarmeclipse-openocd-win32-0.9.0-201505190955-setup.exe`)
   - Verify that OpenOCD works:
 <pre><code>
 C:\Program Files (x86)\GNU ARM Eclipse\OpenOCD\0.9.0-201505190955\bin>openocd -f board/stm32vldiscovery.cfg
@@ -110,10 +110,11 @@ Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
 # Using the OpenOCD plugin
 - Reference: [OpenOCD debugging](http://gnuarmeclipse.livius.net/blog/openocd-debugging/)
 - Setup debugging configuration using *Run - Debug Configurations...*, then start debugging using *Debug*
-  - Debugging works! Single step, breakpoint, watch expression . . .
+  - **Debugging works!** Single step, breakpoint, watch expression . . .
 [<img src="img/eclipse-stm32-debugging-150726.png" />](img/eclipse-stm32-debugging-150726.png)
 - The debugging speed is rather slow
   - To increase, edit `C:\Program Files (x86)\GNU ARM Eclipse\OpenOCD\0.9.0-201505190955\scripts\board\stm32vldiscovery.cfg`, add this line: `adapter_khz 20000`
+    - 20000 is just an arbitrary large number
   - When running the OpenOCD, now the debugger runs at 4000 kHz (apparently it is limited to half of clock frequency)
 <pre><code>
 C:\Program Files (x86)\GNU ARM Eclipse\OpenOCD\0.9.0-201505190955\bin>openocd.exe -f board/stm32vldiscovery.cfg
