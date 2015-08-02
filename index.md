@@ -12,7 +12,7 @@ project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running
 - [STM32F100RB microcontroller](http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1031/LN775/PF216844?sc=internet/mcu/product/216844.jsp)
   - ARM®32-bit Cortex®-M3 CPU
   - 128 KB Flash, 8 KB RAM
-  - Medium-density device
+  - Medium-density Value Line device
 - STLINK v1 interface, SWD connection to the microcontroller
 - Tools: 
   - [Eclipse IDE for C/C++ Developers](https://eclipse.org/downloads/)
@@ -33,7 +33,7 @@ project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running
 - Install **toolchain** (`gcc-arm-none-eabi-4_9-2015q2-20150609-win32.exe`) and **build tools** (`gnuarmeclipse-build-tools-win32-2.4-201503242026-setup.exe`)
 - Install **Eclipse** (`eclipse-cpp-mars-R-win32-x86_64.zip`)
 - Install **GNU ARM Eclipse plugin**
-  - Help - Install New Software...
+  - *Help - Install New Software...*
   - Add new repo: `GNU ARM Eclipse Plug-ins (http://gnuarmeclipse.sourceforge.net/updates)`
   - Install the plugins
 - Set [workspace preferences](http://gnuarmeclipse.livius.net/blog/workspace-preferences/)
@@ -51,7 +51,7 @@ project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running
 # Hello Blinky
 - Reference: [STM32F template](http://gnuarmeclipse.livius.net/blog/stm32f-template/)
 - New C (or C++) project, use type **STM32F10x C/C++ project** using **Cross ARM GCC**
-  - Chip family: **STM32f10x Medium Density**
+  - Chip family: **STM32f10x Medium Density Value Line**
   - Flash size (KB): **128**
   - RAM size (KB): **8**
   - External clock (Hz): **8000000**
@@ -62,16 +62,15 @@ project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running
 [<img src="img/eclipse-stm32-code-150726.png" />](img/eclipse-stm32-code-150726.png)
   - Q: where is the linker script?
 - Use **STM32 ST-LINK Utility** to Program the .hex file to the device --> Nothing happens . . .
-- Need to modify clock settings and GPIO assignment:
-  - In `system/src/cmsis/system_stm32f10x.c`
-    - Comment out `#define SYSCLK_FREQ_72MHz  72000000` -- sets clock to default (*HSI, high speed internal oscillator*, 8 MHz nominal)
-    - **_TODO:_** figure out how to setup external clock / PLL
-  - In `src/BlinkLed.h`
+  - Need to modify GPIO assignment, in `src/BlinkLed.h`:
     - Set `#define BLINK_PORT_NUMBER` to `(2)` -- PORTC
     - Set `#define BLINK_PIN_NUMBER` to `(8)` or `(9)` -- blue or green LED on STM32VLDISCOVERY board, respectively
-- Redo programming using ST-LINK --> **OK**, now LED blinks at 1 second interval!
-  - Try disconnecting the 8 MHz crystal on board: LED still blinks, confirming that HSI is the active oscillator
-
+- Clock setup, see `system/src/cmsis/system_stm32f10x.c`
+  - For `STM32F10X_MD_VL`, the system clock is default to `SYSCLK_FREQ_24MHz`
+  - This macro enables `SetSysClockTo24()` function definition which configures the registers (including the PLL) accordingly
+  - Also, `HSE_VALUE` macro is set in the compiler preprocessor, in this case it is set to `8000000` (which is the external crystal frequency)
+  - Another option when a crystal is not available is to use HSI (high speed internal oscillator, 8 MHz nominal)
+  
   
 # Install OpenOCD
 - Reference: [OpenOCD install](http://gnuarmeclipse.livius.net/blog/openocd-install/)
