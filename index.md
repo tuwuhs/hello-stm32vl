@@ -106,6 +106,7 @@ Info : using stlink api v2
 Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
 </code></pre>
 
+
 # Using the OpenOCD plugin
 - Reference: [OpenOCD debugging](http://gnuarmeclipse.livius.net/blog/openocd-debugging/)
 - Setup debugging configuration using *Run - Debug Configurations...*, then start debugging using *Debug*
@@ -134,3 +135,10 @@ Info : STLINK v1 JTAG v13 API v2 SWIM v0 VID 0x0483 PID 0x3744
 Info : using stlink api v2
 Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
 </code></pre>
+- Since the program is written to flash, to jump to free running mode simply exit debugging and reset the board
+
+# Optimization 
+- In the example project there seems to be no configuration for optimization level either in Debug or Release mode
+- Normally we want the optimization flag to be `-Og` for Debug mode and `-Os` for Release mode
+- This must be manually set up in *Project Properties, C/C++ Build - Settings*, sections *Cross ARM C Compiler - Optimization* and *Cross ARM C++ Compiler - Optimization*. Add the flags in *Other optimization flags*.
+
