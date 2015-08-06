@@ -17,7 +17,7 @@
 TimerHandle_t xLEDTimer1 = NULL;
 TimerHandle_t xLEDTimer2 = NULL;
 
-static void vLEDTimer1Callback(TimerHandle_t xTimer)
+static void prvLEDTimer1Callback(TimerHandle_t xTimer)
 {
 	static unsigned int ledState = 0;
 
@@ -29,7 +29,7 @@ static void vLEDTimer1Callback(TimerHandle_t xTimer)
 	ledState ^= 1;
 }
 
-static void vLEDTimer2Callback(TimerHandle_t xTimer)
+static void prvLEDTimer2Callback(TimerHandle_t xTimer)
 {
 	static unsigned int ledState = 0;
 
@@ -59,11 +59,11 @@ int main(int argc, char* argv[])
 
 	// Setup FreeRTOS
 	xLEDTimer1 = xTimerCreate("LEDTimer1", (300 / portTICK_PERIOD_MS), pdTRUE,
-			(void*) 0, vLEDTimer1Callback);
+			(void*) 0, prvLEDTimer1Callback);
 	xTimerStart(xLEDTimer1, 0);
 
 	xLEDTimer2 = xTimerCreate("LEDTimer2", (370 / portTICK_PERIOD_MS), pdTRUE,
-			(void*) 0, vLEDTimer2Callback);
+			(void*) 0, prvLEDTimer2Callback);
 	xTimerStart(xLEDTimer2, 0);
 
 	// Start FreeRTOS
