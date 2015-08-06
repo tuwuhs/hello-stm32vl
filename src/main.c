@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "diag/Trace.h"
+#include "stm32f10x.h"
 
 // ----------------------------------------------------------------------------
 //
@@ -29,17 +30,26 @@
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 #pragma GCC diagnostic ignored "-Wreturn-type"
 
-int
-main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
-  // At this stage the system clock should have already been configured
-  // at high speed.
+	// Enable GPIO Peripheral clock
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
 
-  // Infinite loop
-  while (1)
-    {
-       // Add your code here.
-    }
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	// Configure LED pins in output push/pull mode
+	GPIO_InitStructure.GPIO_Pin = (1 << 8) | (1 << 9);
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+	// Infinite loop
+	while (1) {
+		GPIO_SetBits(GPIOC, (1 << 9));
+		for (volatile unsigned int i = 1000000; i; i--);
+		GPIO_ResetBits(GPIOC, (1 << 9));
+		for (volatile unsigned int i = 1000000; i; i--);
+	}
 }
 
 #pragma GCC diagnostic pop
