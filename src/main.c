@@ -74,16 +74,41 @@ int main(int argc, char* argv[])
 	GPIO_InitTypeDef GPIO_InitStructure;
 
 	// Configure Pushbutton pins in input mode
-	GPIO_InitStructure.GPIO_Pin = (1 << 0);
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
 
 	// Configure LED pins in output push/pull mode
-	GPIO_InitStructure.GPIO_Pin = (1 << 8) | (1 << 9);
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+	// Enable clocks for port A and DAC
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC, ENABLE);
+
+	// Set up PA.4 as DAC channel 1 output
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+	// DAC channel 1 configuration
+	DAC_InitTypeDef DAC_InitStructure;
+	DAC_InitStructure.DAC_Trigger = DAC_Trigger_None;
+	DAC_InitStructure.DAC_WaveGeneration = DAC_WaveGeneration_None;
+	DAC_InitStructure.DAC_OutputBuffer = DAC_OutputBuffer_Enable;
+	DAC_Init(DAC_Channel_1, &DAC_InitStructure);
+
+	// Enable DAC Channel 1
+	DAC_Cmd(DAC_Channel_1, ENABLE);
+
+	// Test write to DAC
+	DAC_SetChannel1Data(DAC_Align_12b_R, 1024);
+	DAC_SetChannel1Data(DAC_Align_12b_R, 2048);
+	DAC_SetChannel1Data(DAC_Align_12b_R, 3072);
 
 	// Setup FreeRTOS
 	xLEDTimer1 = xTimerCreate("LEDTimer1", (300 / portTICK_PERIOD_MS), pdTRUE,
