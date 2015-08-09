@@ -22,9 +22,9 @@ static void prvLEDTimer1Callback(TimerHandle_t xTimer)
 	static unsigned int ledState = 0;
 
 	if (ledState) {
-		GPIO_ResetBits(GPIOC, (1 << 8));
+		GPIO_ResetBits(GPIOC, GPIO_Pin_8);
 	} else {
-		GPIO_SetBits(GPIOC, (1 << 8));
+		GPIO_SetBits(GPIOC, GPIO_Pin_8);
 	}
 	ledState ^= 1;
 }
@@ -34,9 +34,9 @@ static void prvLEDTimer2Callback(TimerHandle_t xTimer)
 	static unsigned int ledState = 0;
 
 	if (ledState) {
-		GPIO_ResetBits(GPIOC, (1 << 9));
+		GPIO_ResetBits(GPIOC, GPIO_Pin_9);
 	} else {
-		GPIO_SetBits(GPIOC, (1 << 9));
+		GPIO_SetBits(GPIOC, GPIO_Pin_9);
 	}
 	ledState ^= 1;
 }
@@ -47,9 +47,9 @@ static void prvPushbuttonTask(void* pvParameters)
 
 	while (1) {
 		// Wait for a button cycle: pressed then released. Debounce for some ms.
-		while (!GPIO_ReadInputDataBit(GPIOA, (1 << 0)));
+		while (!GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_0));
 		vTaskDelay(50 / portTICK_PERIOD_MS);
-		while (GPIO_ReadInputDataBit(GPIOA, (1 << 0)));
+		while (GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_0));
 		vTaskDelay(50 / portTICK_PERIOD_MS);
 
 		timerState ^= 1;
@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-	GPIO_Init(GPIOC, &GPIO_InitStructure);
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
 
 	// Configure LED pins in output push/pull mode
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9;
