@@ -7,6 +7,10 @@ project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running
 
 [<img src="img/STM32VLDISCOVERY-board.jpg" />](img/STM32VLDISCOVERY-board.jpg)
 
+# Version history
+- (24 March 2017) Update links and new installation method.
+- (9 August 2015) Original article.
+
 # Brief
 - [STM32VLDISCOVERY Product page](http://www.st.com/web/en/catalog/tools/FM116/SC959/SS1532/PF250863?sc=stm32-discovery)
 - [STM32F100RB microcontroller](http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1031/LN775/PF216844?sc=internet/mcu/product/216844.jsp)
@@ -16,10 +20,10 @@ project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running
 - STLINK v1 interface, SWD connection to the microcontroller
 - Tools: 
   - [Eclipse IDE for C/C++ Developers](https://eclipse.org/downloads/)
-  - [GNU ARM Eclipse plug-in](http://gnuarmeclipse.livius.net/)
-  - [ARM GCC toolchain](http://launchpad.net/gcc-arm-embedded)
-  - [Build tools for Windows](https://sourceforge.net/projects/gnuarmeclipse/files/Build%20Tools/)
-  - [OpenOCD debugger](http://sourceforge.net/projects/gnuarmeclipse/files/OpenOCD/Windows)
+  - [GNU ARM Eclipse plug-in](http://gnuarmeclipse.github.io) 
+  - [ARM GCC toolchain](http://launchpad.net/gcc-arm-embedded) or [here](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads)
+  - [Build tools for Windows](https://github.com/gnuarmeclipse/windows-build-tools/releases)
+  - [OpenOCD debugger](https://github.com/gnuarmeclipse/openocd/releases)
   - [STLINK driver](http://www.st.com/web/en/catalog/tools/PF260219)
   - [Zadig](http://zadig.akeo.ie/)
   - Windows 7
@@ -27,29 +31,33 @@ project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running
 
 # Install toolchain, Eclipse and plugin
 - References:
-  - [How to use](http://gnuarmeclipse.livius.net/blog/use/)
-  - [Build tools for Windows](http://gnuarmeclipse.livius.net/blog/build-tools-windows/)
-  - [Plug-in installation](http://gnuarmeclipse.livius.net/blog/plugins-install/)
+  - [How to use](http://gnuarmeclipse.github.io/plugins/mbs/)
+  - [Build tools for Windows](http://gnuarmeclipse.github.io/windows-build-tools/)
+  - [Plug-in installation](http://gnuarmeclipse.github.io/plugins/install/)
 - Install **toolchain** (`gcc-arm-none-eabi-4_9-2015q2-20150609-win32.exe`) and **build tools** (`gnuarmeclipse-build-tools-win32-2.4-201503242026-setup.exe`)
 - Install **Eclipse** (`eclipse-cpp-mars-R-win32-x86_64.zip`)
 - Install **GNU ARM Eclipse plugin**
-  - *Help - Install New Software...*
-  - Add new repo: `GNU ARM Eclipse Plug-ins (http://gnuarmeclipse.sourceforge.net/updates)`
+  - ~~*Help - Install New Software...*~~
+  - ~~Add new repo: `GNU ARM Eclipse Plug-ins (http://gnuarmeclipse.sourceforge.net/updates)`~~
+  - *Help - Eclipse Marketplace...*
+  - Search for `gnu arm eclipse`
   - Install the plugins
-- Set [workspace preferences](http://gnuarmeclipse.livius.net/blog/workspace-preferences/)
+  - It may fail with `GNU ARM Eclipse plug-ins: Received fatal alert: handshake_failure` -- see [this link](http://gnuarmeclipse.github.io/blog/2017/01/29/plugins-install-issue/) for solution
+    - Basically installs update to the JRE by replacing two files `local_policy.jar` and `US_export_policy.jar` in `C:\Program Files\Java\jre1.8.0_111\lib\security`
+- Set [workspace preferences](http://gnuarmeclipse.github.io/eclipse/workspace/preferences/)
 
 
 # Setup Packs -- optional
-- Reference: [Packs manager](http://gnuarmeclipse.livius.net/blog/packs-manager/)
+- Reference: [Packs manager](http://gnuarmeclipse.github.io/plugins/packs-manager/)
 - Go to **Packs** perspective, click *refresh*
 - Install the packs needed (**STM32F1xx_DFP**)
   - To see the progress, look at the status bar on the bottom right 
-- Back to C/C++ perspective, [assign device to project](http://gnuarmeclipse.livius.net/blog/assign-device-project/)
+- Back to C/C++ perspective, [assign device to project](http://gnuarmeclipse.github.io/eclipse/project/assign-device/)
 - Note: it seems that Packs is still not used in build process in current version of GNU ARM Eclipse plugin (`1.0.0.7X7s7icNPLHh8Ecy9dreSyo_r`) 
 
 
 # Hello Blinky
-- Reference: [STM32F template](http://gnuarmeclipse.livius.net/blog/stm32f-template/)
+- Reference: [STM32F template](http://gnuarmeclipse.github.io/templates/stm32f/)
 - New C (or C++) project, use type **STM32F10x C/C++ project** using **Cross ARM GCC**
   - Chip family: **STM32f10x Medium Density Value Line**
   - Flash size (KB): **128**
@@ -73,7 +81,7 @@ project_tagline: My attempt in getting the STM32VLDISCOVERY board up and running
   
   
 # Install OpenOCD
-- Reference: [OpenOCD install](http://gnuarmeclipse.livius.net/blog/openocd-install/)
+- Reference: [OpenOCD install](http://gnuarmeclipse.github.io/openocd/install/)
 - Install **STLINK driver** (`stsw-link009/stlink_winusb_install.bat`)
 - Using **Zadig** (`zadig_2.1.2.exe`)
   - *Options - List All Devices*
@@ -108,7 +116,7 @@ Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
 
 
 # Using the OpenOCD plugin
-- Reference: [OpenOCD debugging](http://gnuarmeclipse.livius.net/blog/openocd-debugging/)
+- Reference: [OpenOCD debugging](http://gnuarmeclipse.github.io/debug/openocd/)
 - Setup debugging configuration using *Run - Debug Configurations...*, then start debugging using *Debug*
   - **Debugging works!** Single step, breakpoint, watch expression . . .
 [<img src="img/eclipse-stm32-debugging-150726.png" />](img/eclipse-stm32-debugging-150726.png)
