@@ -100,6 +100,7 @@ int main(int argc, char* argv[])
 	DAC_InitStructure.DAC_Trigger = DAC_Trigger_None;
 	DAC_InitStructure.DAC_WaveGeneration = DAC_WaveGeneration_None;
 	DAC_InitStructure.DAC_OutputBuffer = DAC_OutputBuffer_Enable;
+	DAC_InitStructure.DAC_LFSRUnmask_TriangleAmplitude = 0;
 	DAC_Init(DAC_Channel_1, &DAC_InitStructure);
 
 	// Enable DAC Channel 1
